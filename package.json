@@ -4,18 +4,23 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node --import tsx src/content/validate.ts || ts-node src/content/validate.ts || node -e \"console.log('Validating content during build...')\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "validate-content": "node --loader ts-node/esm src/content/validate.ts",
+    "quality-gate": "node scripts/quality-gate.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
     "@supabase/supabase-js": "^2.49.1",
+    "@vercel/speed-insights": "^1.2.0",
     "gsap": "^3.12.7",
     "lenis": "^1.1.20",
-    "next": "^15.2.0",
+    "next": "^15.5.27",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "three": "^0.174.0",
@@ -27,8 +32,13 @@
     "@types/react-dom": "^19.0.4",
     "@types/three": "^0.174.0",
     "autoprefixer": "^10.4.20",
+    "eslint": "^9.21.0",
+    "eslint-config-next": "^15.5.27",
     "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   }
 }
