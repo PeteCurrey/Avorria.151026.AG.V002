@@ -4,25 +4,33 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NAV_LINKS = [
-  { href: "/capabilities", label: "Capabilities" },
-  { href: "/#standards", label: "Standards" },
-  { href: "/#engagements", label: "Engagements" },
-  { href: "/contact", label: "Inquire" },
-];
-
 export function Navigation() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const isUs = pathname.startsWith("/us");
+  const prefix = isUs ? "/us" : "";
+
+  const navLinks = [
+    { href: `${prefix}/services`, label: "Services" },
+    { href: `${prefix}/case-studies`, label: "Case Studies" },
+    { href: "/lobby", label: "The Lobby" },
+    { href: `${prefix}/contact`, label: "Inquire" },
+  ];
+
+  // Derive reciprocal path for locale toggle
+  const alternateLocaleHref = isUs
+    ? pathname.replace(/^\/us/, "") || "/"
+    : `/us${pathname === "/" ? "" : pathname}`;
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-ivory/90 backdrop-blur-md hairline-b transition-colors duration-200">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-ivory/95 backdrop-blur-md hairline-b transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-20 flex items-center justify-between">
         {/* Brand Wordmark - "Avorria" ONLY */}
         <Link
-          href="/"
+          href={isUs ? "/us" : "/"}
           className="group flex items-center gap-3 text-graphite hover:text-rose transition-colors duration-200 focus-visible:outline-rose"
-          aria-label="Avorria home"
+          aria-label={isUs ? "Avorria US Home" : "Avorria Home"}
         >
           <span className="font-extralight text-2xl sm:text-3xl tracking-tighter-display uppercase">
             Avorria
@@ -30,21 +38,19 @@ export function Navigation() {
           <span className="w-1.5 h-1.5 rounded-full bg-rose inline-block group-hover:scale-125 transition-transform duration-200" />
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation Links */}
         <nav
-          className="hidden md:flex items-center space-x-10 text-sm tracking-tight-editorial font-light text-graphite-muted"
+          className="hidden md:flex items-center space-x-8 text-xs tracking-tight-editorial font-light text-graphite-muted"
           aria-label="Main Navigation"
         >
-          {NAV_LINKS.map((link) => {
+          {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={`transition-colors duration-150 py-1 relative ${
-                  isActive
-                    ? "text-graphite font-light"
-                    : "hover:text-graphite"
+                  isActive ? "text-graphite font-light" : "hover:text-graphite"
                 }`}
               >
                 {link.label}
@@ -56,14 +62,19 @@ export function Navigation() {
           })}
         </nav>
 
-        {/* Global Operations Marker */}
-        <div className="hidden lg:flex items-center gap-4 text-xs font-light text-graphite-muted">
-          <span className="inline-flex items-center gap-1.5">
-            <span className="w-1 h-1 rounded-full bg-graphite" />
-            <span>LON / NYC</span>
-          </span>
+        {/* Locale & Operations Selector */}
+        <div className="hidden sm:flex items-center gap-4 text-xs font-light text-graphite-muted">
+          <Link
+            href={alternateLocaleHref}
+            className="px-2.5 py-1 border border-graphite-hairline hover:border-graphite text-[11px] font-mono text-graphite transition-colors"
+            title={isUs ? "Switch to United Kingdom (en-GB)" : "Switch to United States (en-US)"}
+          >
+            {isUs ? "Switch: UK (en-GB)" : "Switch: US (en-US)"}
+          </Link>
           <span className="text-graphite-hairline">|</span>
-          <span className="tracking-wide text-[11px] uppercase">Est. UK & US</span>
+          <span className="tracking-wide text-[11px] uppercase">
+            {isUs ? "New York Hub" : "London Hub"}
+          </span>
         </div>
 
         {/* Mobile Menu Toggle Button */}
@@ -88,7 +99,7 @@ export function Navigation() {
           aria-label="Mobile Navigation"
         >
           <nav className="flex flex-col space-y-4">
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -99,9 +110,17 @@ export function Navigation() {
               </Link>
             ))}
           </nav>
-          <div className="pt-2 text-xs font-light text-graphite-muted flex items-center justify-between">
-            <span>Avorria Operations</span>
-            <span>London · New York</span>
+          <div className="pt-4 border-t border-graphite-hairline flex items-center justify-between text-xs">
+            <Link
+              href={alternateLocaleHref}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-rose underline"
+            >
+              {isUs ? "Switch to UK site (/)" : "Switch to US site (/us)"}
+            </Link>
+            <span className="font-mono text-graphite-muted">
+              {isUs ? "NYC Hub" : "LON Hub"}
+            </span>
           </div>
         </div>
       )}

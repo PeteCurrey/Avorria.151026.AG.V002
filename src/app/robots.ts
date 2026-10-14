@@ -7,7 +7,19 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: "/",
       },
+      {
+        userAgent: [
+          "GPTBot",
+          "ClaudeBot",
+          "PerplexityBot",
+          "Google-Extended",
+          "Applebot-Extended",
+          "CCBot",
+        ],
+        allow: "/",
+      },
     ],
     sitemap: "https://avorria.com/sitemap.xml",
+    host: "https://avorria.com",
   };
 }

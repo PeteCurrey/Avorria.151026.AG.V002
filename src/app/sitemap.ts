@@ -1,26 +1,82 @@
 import type { MetadataRoute } from "next";
+import { SERVICES } from "@/content/data/services";
+import { LOBBY_ARTICLES } from "@/content/data/lobby";
+
+const BASE_URL = "https://avorria.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://avorria.com";
+  const routes: MetadataRoute.Sitemap = [];
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
+  // Helper to add reciprocal routes
+  const addLocalizedPage = (path: string, lastmod: string = "2026-04-12", priority: number = 0.8) => {
+    const gbUrl = `${BASE_URL}${path === "/" ? "" : path}`;
+    const usUrl = `${BASE_URL}/us${path === "/" ? "" : path}`;
+
+    // UK page
+    routes.push({
+      url: gbUrl,
+      lastModified: new Date(lastmod),
       changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/capabilities`,
-      lastModified: new Date(),
+      priority,
+      alternates: {
+        languages: {
+          "en-GB": gbUrl,
+          "en-US": usUrl,
+          "x-default": gbUrl,
+        },
+      },
+    });
+
+    // US page
+    routes.push({
+      url: usUrl,
+      lastModified: new Date(lastmod),
+      changeFrequency: "weekly",
+      priority,
+      alternates: {
+        languages: {
+          "en-GB": gbUrl,
+          "en-US": usUrl,
+          "x-default": gbUrl,
+        },
+      },
+    });
+  };
+
+  // Home
+  addLocalizedPage("/", "2026-04-12", 1.0);
+
+  // Services index
+  addLocalizedPage("/services", "2026-04-12", 0.9);
+
+  // Individual services
+  SERVICES.forEach((service) => {
+    addLocalizedPage(`/services/${service.slug}`, "2026-04-10", 0.85);
+  });
+
+  // Case studies
+  addLocalizedPage("/case-studies", "2026-04-10", 0.8);
+
+  // Contact
+  addLocalizedPage("/contact", "2026-04-12", 0.8);
+
+  // Lobby (Editorial thought leadership) - global
+  routes.push({
+    url: `${BASE_URL}/lobby`,
+    lastModified: new Date("2026-04-12"),
+    changeFrequency: "weekly",
+    priority: 0.8,
+  });
+
+  // Individual Lobby articles
+  LOBBY_ARTICLES.forEach((article) => {
+    routes.push({
+      url: `${BASE_URL}/lobby/${article.slug}`,
+      lastModified: new Date(article.updatedAt),
       changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-  ];
+      priority: 0.7,
+    });
+  });
+
+  return routes;
 }

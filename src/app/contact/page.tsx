@@ -1,89 +1,81 @@
 import React from "react";
-import type { Metadata } from "next";
-import { OFFICE_PRESENCES } from "@/content/standards";
+import Link from "next/link";
+import { constructMetadata } from "@/lib/seo/metadata";
+import { LOCATIONS } from "@/content/data/locations";
 import { InquiryForm } from "@/components/forms/InquiryForm";
+import { BreadcrumbsJsonLd } from "@/components/seo/JsonLd";
 
-export const metadata: Metadata = {
-  title: "Executive Inquiries & Contact",
+export const metadata = constructMetadata({
+  title: "Executive Inquiries & Contact (UK & EMEA)",
   description:
-    "Direct communication channel for enterprise mandates in the United Kingdom and United States. Connect with Avorria technical leadership.",
-  alternates: {
-    canonical: "https://avorria.com/contact",
-  },
-};
+    "Direct communication channel for enterprise mandates in the United Kingdom and Europe. Connect with Avorria technical partners.",
+  path: "/contact",
+  locale: "en-GB",
+  hasUsAlternate: true,
+});
 
 export default function ContactPage() {
+  const ukHub = LOCATIONS.find((l) => l.code === "LON")!;
+
   return (
-    <div className="py-16 sm:py-24 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-20">
-      {/* Page Header */}
-      <section className="space-y-6 max-w-3xl">
-        <div className="flex items-center gap-3">
-          <span className="w-1.5 h-1.5 rounded-full bg-rose inline-block" />
-          <span className="text-xs uppercase tracking-widest text-rose font-light">
-            Direct Transmission
+    <div className="max-w-5xl mx-auto px-6 py-16 space-y-16">
+      <BreadcrumbsJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]}
+      />
+
+      <header className="space-y-4 border-b border-graphite-hairline pb-8">
+        <div className="flex items-center justify-between text-xs text-graphite-muted">
+          <span className="uppercase tracking-widest text-rose font-light">
+            Direct Transmission &middot; London Hub
           </span>
+          <Link href="/us/contact" className="text-graphite hover:text-rose underline">
+            View US Contact &amp; NYC Hub (/us/contact) &rarr;
+          </Link>
         </div>
-        <h1 className="text-4xl sm:text-6xl font-extralight text-graphite tracking-tighter-display">
+        <h1 className="text-4xl sm:text-5xl font-extralight text-graphite tracking-tighter-display">
           Executive Inquiries &amp; Mandate Initiation
         </h1>
-        <p className="text-base sm:text-lg text-graphite-muted font-light leading-relaxed">
-          Avorria partners with enterprise leadership in London, New York, and internationally. All project discussions are held under strict mutual confidentiality.
+        <p className="text-base text-graphite-muted font-light max-w-2xl leading-relaxed">
+          Avorria partners with enterprise leadership in London, Edinburgh, and across Europe. All preliminary discussions are held under strict mutual confidentiality.
         </p>
-      </section>
+      </header>
 
-      {/* Grid: Office Details & Inquiry Form */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-        {/* Left Column: Office Presence & Security Details */}
-        <div className="lg:col-span-5 space-y-12">
-          <div className="space-y-6">
-            <h2 className="text-xs uppercase tracking-widest text-graphite-muted font-light">
-              Operational Hubs
-            </h2>
-            <div className="space-y-6">
-              {OFFICE_PRESENCES.map((office) => (
-                <div
-                  key={office.code}
-                  className="border border-graphite-hairline p-6 bg-ivory space-y-2"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-light text-graphite">
-                      {office.city} [{office.code}]
-                    </span>
-                    <span className="text-xs font-mono text-rose">
-                      {office.status}
-                    </span>
-                  </div>
-                  <p className="text-xs font-light text-graphite-muted">
-                    Jurisdiction: {office.jurisdiction}
-                  </p>
-                  <p className="text-xs font-light text-graphite-muted/90 pt-1">
-                    {office.focus}
-                  </p>
-                </div>
-              ))}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        {/* Left Column: Office Details */}
+        <div className="lg:col-span-5 space-y-8">
+          <div className="border border-graphite-hairline p-6 bg-ivory space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-lg font-light text-graphite">
+                {ukHub.city} [{ukHub.code}]
+              </span>
+              <span className="text-xs font-mono text-rose">Headquarters</span>
+            </div>
+            <p className="text-xs text-graphite-muted leading-relaxed">
+              {ukHub.status}
+            </p>
+            <div className="text-xs text-graphite font-mono space-y-1 pt-2 border-t border-graphite-hairline">
+              <p>{ukHub.postalAddress.streetAddress}</p>
+              <p>{ukHub.postalAddress.addressLocality}, {ukHub.postalAddress.postalCode}</p>
+              <p>{ukHub.country}</p>
+              <p className="pt-2 text-rose">{ukHub.telephone}</p>
+              <p className="text-graphite-muted">{ukHub.email}</p>
             </div>
           </div>
 
-          <div className="border border-graphite-hairline p-6 bg-ivory-subtle space-y-4">
-            <h3 className="text-xs uppercase tracking-widest text-graphite font-light">
-              Direct Partner Channel
-            </h3>
-            <p className="text-xs text-graphite-muted font-light leading-relaxed">
-              For priority institutional or urgent architecture remediation inquiries:
+          <div className="border border-graphite-hairline p-6 bg-ivory-subtle space-y-3">
+            <h2 className="text-xs uppercase tracking-wider text-graphite font-light">
+              Governance &amp; Confidentiality
+            </h2>
+            <p className="text-xs text-graphite-muted leading-relaxed">
+              Inquiries are governed under English law. Standard bilateral NDA execution available within 4 business hours prior to architecture review.
             </p>
-            <a
-              href="mailto:partner@avorria.com"
-              className="text-sm text-rose font-light hover:underline block"
-            >
-              partner@avorria.com
-            </a>
-            <div className="pt-2 text-[11px] text-graphite-muted font-mono border-t border-graphite-hairline">
-              PGP Key Available Upon Request
-            </div>
           </div>
         </div>
 
-        {/* Right Column: Form */}
+        {/* Right Column: Inquiry Terminal */}
         <div className="lg:col-span-7">
           <InquiryForm />
         </div>
