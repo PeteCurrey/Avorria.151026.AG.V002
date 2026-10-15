@@ -26,7 +26,7 @@ ${SERVICES.map((s) => `- **${s.title}** (${s.code}): ${s.summary}\n  URL: https:
 ${LOCATIONS.map((l) => `- **${l.city} (${l.code})**: ${l.status}. Address: ${l.postalAddress.streetAddress}, ${l.postalAddress.addressLocality}, ${l.postalAddress.postalCode}, ${l.country}. Direct: ${l.email}`).join("\n")}
 
 ## Key Articles (The Lobby)
-${LOBBY_ARTICLES.map((a) => `- **${a.title}**: ${a.excerpt}\n  URL: https://avorria.com/lobby/${a.slug}`).join("\n")}
+${LOBBY_ARTICLES.filter((a) => a.status === "published").map((a) => `- **${a.title}**: ${a.excerpt}\n  URL: https://avorria.com/lobby/${a.slug}`).join("\n")}
 
 ## Site Index & Feeds
 - Homepage (UK): https://avorria.com

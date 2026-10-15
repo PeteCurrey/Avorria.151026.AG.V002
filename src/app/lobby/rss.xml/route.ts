@@ -7,19 +7,27 @@ export const dynamic = "force-static";
 export async function GET() {
   const SITE_URL = "https://avorria.com";
 
-  const rssItems = LOBBY_ARTICLES.map((article) => {
-    const author = TEAM_MEMBERS.find((m) => m.id === article.authorId);
-    const pubDate = new Date(article.publishedAt).toUTCString();
+  // Only published articles are distributed via RSS feed
+  const publishedArticles = LOBBY_ARTICLES.filter(
+    (article) => article.status === "published"
+  );
 
-    return `    <item>
+  const rssItems = publishedArticles
+    .map((article) => {
+      const author = TEAM_MEMBERS.find((m) => m.id === article.authorId);
+      const pubDate = new Date(article.publishedAt).toUTCString();
+
+      return `    <item>
       <title><![CDATA[${article.title}]]></title>
       <link>${SITE_URL}/lobby/${article.slug}</link>
       <guid isPermaLink="true">${SITE_URL}/lobby/${article.slug}</guid>
       <pubDate>${pubDate}</pubDate>
+      <category><![CDATA[${article.category}]]></category>
       <description><![CDATA[${article.excerpt}]]></description>
       <author>${author?.name || "Avorria Editorial"}</author>
     </item>`;
-  }).join("\n");
+    })
+    .join("\n");
 
   const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">

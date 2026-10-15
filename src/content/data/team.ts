@@ -2,9 +2,18 @@ import type { TeamMember } from "../schema";
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
+    id: "pete-currey",
+    name: "Pete Currey",
+    role: "Technical Director & Lead Architecture",
+    bio: "Directs foundational systems architecture, Next.js 16 compiler optimization, deterministic AI state machine design, and Core Web Vitals telemetry across London and New York.",
+    locationCode: "LON",
+    linkedIn: "https://linkedin.com/in/avorria-leadership",
+    sameAs: ["https://linkedin.com/in/avorria-leadership", "https://github.com/avorria"],
+  },
+  {
     id: "alexander-wright",
     name: "Alexander Wright",
-    role: "Managing Partner & Head of Systems Architecture",
+    role: "Partner, Systems Architecture",
     bio: "Directs foundational systems engineering, React 19 compiler strategy, and enterprise technical governance across London and New York.",
     locationCode: "LON",
     linkedIn: "https://linkedin.com/in/avorria-leadership",

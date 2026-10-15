@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SERVICES } from "@/content/data/services";
 import { CASE_STUDIES } from "@/content/data/case-studies";
-import { LOBBY_ARTICLES } from "@/content/data/lobby";
+import { LOBBY_ARTICLES, CATEGORY_REGISTRY } from "@/content/data/lobby";
 
 const BASE_URL = "https://avorria.com";
 
@@ -75,15 +75,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   });
 
-  // Individual Lobby articles
-  LOBBY_ARTICLES.forEach((article) => {
+  // Lobby Category Hubs
+  Object.values(CATEGORY_REGISTRY).forEach((cat) => {
     routes.push({
-      url: `${BASE_URL}/lobby/${article.slug}`,
-      lastModified: new Date(article.updatedAt),
+      url: `${BASE_URL}/lobby/category/${cat.slug}`,
+      lastModified: new Date("2026-04-12"),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.75,
     });
   });
+
+  // Individual Lobby articles (strictly published only, drafts excluded)
+  LOBBY_ARTICLES.filter((article) => article.status === "published").forEach(
+    (article) => {
+      routes.push({
+        url: `${BASE_URL}/lobby/${article.slug}`,
+        lastModified: new Date(article.updatedAt),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  );
 
   return routes;
 }

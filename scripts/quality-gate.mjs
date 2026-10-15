@@ -31,6 +31,9 @@ const ROUTES_TO_TEST = [
   { path: "/us/work/avorria-corporate-platform", locale: "en-US", expectUsAlternate: true },
   { path: "/lobby", locale: "en-GB", expectUsAlternate: false },
   { path: "/lobby/engineering-the-sub-second-web", locale: "en-GB", expectUsAlternate: false },
+  { path: "/lobby/core-web-vitals-nextjs", locale: "en-GB", expectUsAlternate: false },
+  { path: "/lobby/category/web-architecture", locale: "en-GB", expectUsAlternate: false },
+  { path: "/lobby/category/performance-engineering", locale: "en-GB", expectUsAlternate: false },
   { path: "/contact", locale: "en-GB", expectUsAlternate: true },
   { path: "/us/contact", locale: "en-US", expectUsAlternate: true },
 ];

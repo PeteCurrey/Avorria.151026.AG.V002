@@ -110,6 +110,24 @@ export const LobbyArticleSchema = z.object({
   excerpt: z.string().min(30),
   body: z.string().min(100),
   tags: z.array(z.string().min(1)).min(1),
+  category: z.enum([
+    "Web Architecture",
+    "Performance Engineering",
+    "Technical SEO",
+    "Enterprise AI",
+    "Systems Auditing",
+  ]),
+  status: z.enum(["draft", "published"]).default("draft"),
+  tableOfContents: z
+    .array(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+      })
+    )
+    .optional(),
+  featured: z.boolean().optional(),
+  relatedSlugs: z.array(z.string()).optional(),
 });
 
 export const TeamMemberSchema = z.object({

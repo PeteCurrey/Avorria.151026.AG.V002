@@ -9,6 +9,7 @@ interface GenerateMetadataOptions {
   locale?: "en-GB" | "en-US";
   hasUsAlternate?: boolean; // if true, sets up reciprocal hreflangs between /... and /us/...
   ogSubtitle?: string;
+  noindex?: boolean;
 }
 
 export function constructMetadata({
@@ -18,6 +19,7 @@ export function constructMetadata({
   locale = "en-GB",
   hasUsAlternate = true,
   ogSubtitle,
+  noindex = false,
 }: GenerateMetadataOptions): Metadata {
   const isUs = path.startsWith("/us");
   const basePath = isUs ? path.replace(/^\/us/, "") || "/" : path;
@@ -75,10 +77,10 @@ export function constructMetadata({
       images: [ogImageUrl],
     },
     robots: {
-      index: true,
+      index: !noindex,
       follow: true,
       googleBot: {
-        index: true,
+        index: !noindex,
         follow: true,
         "max-video-preview": -1,
         "max-image-preview": "large",
