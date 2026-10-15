@@ -81,7 +81,7 @@ export default function CaseStudiesPage() {
                 Verified Outcomes &amp; Metrics
               </span>
               <ul className="space-y-1 text-xs text-graphite">
-                {cs.metrics.map((metric, idx) => (
+                {(cs.metrics || []).map((metric, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <span className="text-rose font-mono">&bull;</span>
                     <span>{metric}</span>
@@ -91,7 +91,7 @@ export default function CaseStudiesPage() {
             </div>
 
             <div className="pt-4 border-t border-graphite-hairline text-[11px] text-graphite-muted space-y-1 font-mono">
-              {cs.visibleFacts.map((fact, idx) => (
+              {(cs.visibleFacts || []).map((fact, idx) => (
                 <p key={idx}>{fact}</p>
               ))}
             </div>

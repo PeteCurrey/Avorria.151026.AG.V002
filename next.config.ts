@@ -80,6 +80,26 @@ const nextConfig: NextConfig = {
         destination: "/us/services/performance-seo",
         permanent: true,
       },
+      {
+        source: "/case-studies",
+        destination: "/work",
+        permanent: true,
+      },
+      {
+        source: "/case-studies/:slug",
+        destination: "/work/:slug",
+        permanent: true,
+      },
+      {
+        source: "/us/case-studies",
+        destination: "/us/work",
+        permanent: true,
+      },
+      {
+        source: "/us/case-studies/:slug",
+        destination: "/us/work/:slug",
+        permanent: true,
+      },
     ];
   },
   async headers() {

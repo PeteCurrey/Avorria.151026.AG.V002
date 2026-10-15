@@ -161,3 +161,56 @@ export function ArticleJsonLd({ article }: { article: LobbyArticle }) {
     />
   );
 }
+
+export function CaseStudyJsonLd({
+  caseStudy,
+  locale = "en-GB",
+}: {
+  caseStudy: import("@/content/schema").CaseStudy;
+  locale?: "en-GB" | "en-US";
+}) {
+  const isUs = locale === "en-US";
+  const canonicalUrl = `${SITE_URL}${isUs ? "/us" : ""}/work/${caseStudy.slug}`;
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${canonicalUrl}#creativework`,
+    name: caseStudy.title,
+    headline: caseStudy.summary,
+    description: caseStudy.challenge,
+    genre: caseStudy.serviceCategory,
+    inLanguage: isUs ? "en-US" : "en-GB",
+    datePublished: caseStudy.publishedAt,
+    dateModified: caseStudy.updatedAt,
+    mainEntityOfPage: canonicalUrl,
+    creator: {
+      "@type": "Organization",
+      name: "Avorria",
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Avorria",
+      url: SITE_URL,
+      logo: `${SITE_URL}/api/og?title=${encodeURIComponent(caseStudy.title)}`,
+    },
+    contributor: caseStudy.credits.map((c) => ({
+      "@type": "Person",
+      name: c.name,
+      jobTitle: c.role,
+    })),
+    about: caseStudy.techStack.map((tech) => ({
+      "@type": "Thing",
+      name: tech,
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+

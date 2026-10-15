@@ -143,8 +143,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/case-studies" className="text-graphite-muted hover:text-ivory transition-colors">
-                  Case Studies &amp; Mandates
+                <Link href="/work" className="text-graphite-muted hover:text-ivory transition-colors">
+                  Selected Work &amp; Case Studies
                 </Link>
               </li>
               <li>

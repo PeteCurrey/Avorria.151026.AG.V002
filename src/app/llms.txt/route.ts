@@ -33,7 +33,8 @@ ${LOBBY_ARTICLES.map((a) => `- **${a.title}**: ${a.excerpt}\n  URL: https://avor
 - Homepage (US): https://avorria.com/us
 - Services (UK): https://avorria.com/services
 - Services (US): https://avorria.com/us/services
-- Case Studies: https://avorria.com/case-studies
+- Work & Case Studies (UK): https://avorria.com/work
+- Work & Case Studies (US): https://avorria.com/us/work
 - The Lobby: https://avorria.com/lobby
 - RSS Feed: https://avorria.com/lobby/rss.xml
 - Contact & Inquiries: https://avorria.com/contact

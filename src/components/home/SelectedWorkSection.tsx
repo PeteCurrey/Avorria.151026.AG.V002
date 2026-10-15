@@ -53,7 +53,7 @@ export function SelectedWorkSection() {
                       Targeted Core Web Vitals
                     </span>
                     <p className="font-mono text-sm sm:text-base text-ivory font-light">
-                      {study.metrics[0]}
+                      {study.metrics?.[0] || study.summary}
                     </p>
                   </div>
                 </div>
@@ -63,7 +63,7 @@ export function SelectedWorkSection() {
             {/* Title & Summary */}
             <div className="space-y-3">
               <h3 className="font-fluid-h3 font-extralight text-graphite group-hover:text-rose transition-colors duration-200">
-                <Link href={`/case-studies/${study.slug}`}>
+                <Link href={`/work/${study.slug}`}>
                   {study.title}
                 </Link>
               </h3>
@@ -78,7 +78,7 @@ export function SelectedWorkSection() {
                 Verified Architectural Deliverables:
               </span>
               <ul className="space-y-1.5 text-xs text-graphite font-light">
-                {study.metrics.map((metric, mIdx) => (
+                {(study.metrics || []).map((metric, mIdx) => (
                   <li key={mIdx} className="flex items-start gap-2">
                     <span className="text-rose font-mono text-[11px] mt-0.5">&bull;</span>
                     <span>{metric}</span>
@@ -91,7 +91,7 @@ export function SelectedWorkSection() {
             <div className="pt-3 border-t border-graphite-hairline flex items-center justify-between text-xs font-mono">
               <span className="text-graphite-muted text-[11px]">Strict NDA Governance</span>
               <Link
-                href={`/case-studies/${study.slug}`}
+                href={`/work/${study.slug}`}
                 className="text-rose group-hover:text-graphite hover:underline transition-colors flex items-center gap-1.5"
               >
                 <span>Read Architectural Case Study</span>

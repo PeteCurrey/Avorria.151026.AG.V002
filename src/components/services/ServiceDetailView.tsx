@@ -490,10 +490,10 @@ export function ServiceDetailView({
                 </h2>
               </div>
               <Link
-                href={`${prefix}/case-studies`}
+                href={`${prefix}/work`}
                 className="text-xs font-mono uppercase tracking-widest text-rose hover:text-graphite underline-sweep"
               >
-                View all case studies &rarr;
+                View all selected work &rarr;
               </Link>
             </div>
 
@@ -504,13 +504,13 @@ export function ServiceDetailView({
                   className="border border-graphite-hairline p-8 bg-ivory space-y-6 hover:border-graphite transition-colors duration-200"
                 >
                   <div className="flex items-center justify-between text-xs font-mono text-graphite-muted border-b border-graphite-hairline pb-3">
-                    <span className="text-rose">{cs.jurisdiction}</span>
+                    <span className="text-rose">{cs.jurisdiction || cs.market}</span>
                     <span>[{cs.clientSector}]</span>
                   </div>
 
                   <div className="space-y-2">
                     <h3 className="font-fluid-h3 font-extralight text-graphite">
-                      <Link href={`${prefix}/case-studies/${cs.slug}`} className="hover:text-rose transition-colors">
+                      <Link href={`${prefix}/work/${cs.slug}`} className="hover:text-rose transition-colors">
                         {cs.title}
                       </Link>
                     </h3>
@@ -524,13 +524,13 @@ export function ServiceDetailView({
                       Empirical Metric Verified:
                     </span>
                     <p className="text-xs font-mono text-graphite font-light">
-                      &bull; {cs.metrics[0]}
+                      &bull; {cs.metrics?.[0] || cs.summary}
                     </p>
                   </div>
 
                   <div className="pt-2">
                     <Link
-                      href={`${prefix}/case-studies/${cs.slug}`}
+                      href={`${prefix}/work/${cs.slug}`}
                       className="text-xs font-mono text-rose hover:underline"
                     >
                       Read Case Study Analysis &rarr;

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SERVICES } from "@/content/data/services";
+import { CASE_STUDIES } from "@/content/data/case-studies";
 import { LOBBY_ARTICLES } from "@/content/data/lobby";
 
 const BASE_URL = "https://avorria.com";
@@ -54,8 +55,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     addLocalizedPage(`/services/${service.slug}`, "2026-04-10", 0.85);
   });
 
-  // Case studies
-  addLocalizedPage("/case-studies", "2026-04-10", 0.8);
+  // Work & Case studies (only verified architectures are included in sitemap)
+  const verifiedCaseStudies = CASE_STUDIES.filter((cs) => cs.verified);
+  if (verifiedCaseStudies.length > 0) {
+    addLocalizedPage("/work", "2026-04-14", 0.85);
+    verifiedCaseStudies.forEach((cs) => {
+      addLocalizedPage(`/work/${cs.slug}`, cs.updatedAt, 0.8);
+    });
+  }
 
   // Contact
   addLocalizedPage("/contact", "2026-04-12", 0.8);

@@ -20,7 +20,7 @@ export function Navigation() {
 
   const navLinks = [
     { href: `${prefix}/services`, label: "Services", sub: "Deterministic Web & AI Architectures" },
-    { href: `${prefix}/case-studies`, label: "Case Studies", sub: "Enterprise Proof & Benchmarks" },
+    { href: `${prefix}/work`, label: "Work", sub: "Selected Systems & Benchmarks" },
     { href: "/lobby", label: "The Lobby", sub: "Architectural Essays & Research" },
     { href: `${prefix}/contact`, label: "Inquire", sub: "Direct Executive Transmission" },
   ];
