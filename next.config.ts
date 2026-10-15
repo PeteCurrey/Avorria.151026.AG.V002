@@ -36,8 +36,13 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/about",
-        destination: "/",
+        source: "/us/lobby",
+        destination: "/lobby",
+        permanent: true,
+      },
+      {
+        source: "/us/lobby/:path*",
+        destination: "/lobby/:path*",
         permanent: true,
       },
       {

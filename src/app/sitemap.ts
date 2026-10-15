@@ -64,8 +64,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
+  // About practice & leadership
+  addLocalizedPage("/about", "2026-04-15", 0.85);
+
+  // Architectural audit intake
+  addLocalizedPage("/audit", "2026-04-15", 0.85);
+
   // Contact
-  addLocalizedPage("/contact", "2026-04-12", 0.8);
+  addLocalizedPage("/contact", "2026-04-15", 0.8);
+
+  // Legal suite
+  addLocalizedPage("/privacy", "2026-04-15", 0.5);
+  addLocalizedPage("/cookies", "2026-04-15", 0.5);
+  addLocalizedPage("/terms", "2026-04-15", 0.5);
+  addLocalizedPage("/accessibility", "2026-04-15", 0.5);
 
   // Lobby (Editorial thought leadership) - global
   routes.push({

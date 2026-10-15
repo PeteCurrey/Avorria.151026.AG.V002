@@ -21,11 +21,18 @@ export function Navigation() {
   const navLinks = [
     { href: `${prefix}/services`, label: "Services", sub: "Deterministic Web & AI Architectures" },
     { href: `${prefix}/work`, label: "Work", sub: "Selected Systems & Benchmarks" },
+    { href: `${prefix}/about`, label: "About", sub: "Leadership & Architectural Principles" },
     { href: "/lobby", label: "The Lobby", sub: "Architectural Essays & Research" },
+    { href: `${prefix}/audit`, label: "Site Audit", sub: "Free Diagnostic Evaluation" },
     { href: `${prefix}/contact`, label: "Inquire", sub: "Direct Executive Transmission" },
   ];
 
-  const alternateLocaleHref = isUs
+  const isLobby = pathname.startsWith("/lobby");
+  const alternateLocaleHref = isLobby
+    ? isUs
+      ? "/"
+      : "/us"
+    : isUs
     ? pathname.replace(/^\/us/, "") || "/"
     : `/us${pathname === "/" ? "" : pathname}`;
 

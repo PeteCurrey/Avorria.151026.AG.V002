@@ -31,14 +31,23 @@ ${LOBBY_ARTICLES.filter((a) => a.status === "published").map((a) => `- **${a.tit
 ## Site Index & Feeds
 - Homepage (UK): https://avorria.com
 - Homepage (US): https://avorria.com/us
+- About Practice (UK): https://avorria.com/about
+- About Practice (US): https://avorria.com/us/about
 - Services (UK): https://avorria.com/services
 - Services (US): https://avorria.com/us/services
 - Work & Case Studies (UK): https://avorria.com/work
 - Work & Case Studies (US): https://avorria.com/us/work
 - The Lobby: https://avorria.com/lobby
+- Architectural Audit (UK): https://avorria.com/audit
+- Architectural Audit (US): https://avorria.com/us/audit
+- Contact & Inquiries (UK): https://avorria.com/contact
+- Contact & Inquiries (US): https://avorria.com/us/contact
 - RSS Feed: https://avorria.com/lobby/rss.xml
-- Contact & Inquiries: https://avorria.com/contact
 - XML Sitemap: https://avorria.com/sitemap.xml
+- Privacy Policy: https://avorria.com/privacy
+- Cookie Policy: https://avorria.com/cookies
+- Terms of Business: https://avorria.com/terms
+- Accessibility Statement: https://avorria.com/accessibility
 `;
 
   return new NextResponse(content, {

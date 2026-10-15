@@ -77,7 +77,7 @@ export default function UsContactPage() {
 
         {/* Right Column: Inquiry Terminal */}
         <div className="lg:col-span-7">
-          <InquiryForm />
+          <InquiryForm market="US" />
         </div>
       </div>
     </div>

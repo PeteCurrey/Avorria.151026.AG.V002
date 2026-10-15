@@ -11,8 +11,15 @@ export const InquirySchema = z.object({
     "Architecture Audit & Core Web Vitals Remediation",
     "General Executive Advisory",
   ]),
-  projectTimeline: z.enum(["Immediate (Next 30 Days)", "Quarterly Planning (1-3 Months)", "Strategic Advisory"]),
+  projectTimeline: z.enum([
+    "Immediate (Next 30 Days)",
+    "Quarterly Planning (1-3 Months)",
+    "Strategic Advisory",
+  ]),
   overview: z.string().min(15, "Please provide an overview of at least 15 characters").max(2000),
+  website_hp: z.string().max(0, "Spam detected").optional().or(z.literal("")),
+  turnstileToken: z.string().optional(),
+  market: z.enum(["UK", "US"]).optional(),
 });
 
 export type InquiryFormData = z.infer<typeof InquirySchema>;

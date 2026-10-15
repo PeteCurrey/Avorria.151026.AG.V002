@@ -148,8 +148,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/about" className="text-graphite-muted hover:text-ivory transition-colors">
+                  About Practice &amp; Team
+                </Link>
+              </li>
+              <li>
                 <Link href="/lobby" className="text-graphite-muted hover:text-ivory transition-colors">
                   The Lobby (Essays &amp; Standards)
+                </Link>
+              </li>
+              <li>
+                <Link href="/audit" className="text-graphite-muted hover:text-ivory transition-colors">
+                  Architectural Site Audit
                 </Link>
               </li>
               <li>
@@ -167,7 +177,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Metadata & Legal Bar */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-xs font-light text-graphite-muted">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-xs font-light text-graphite-muted border-t border-white/10 pt-8">
           <div className="space-y-1">
             <p>&copy; {new Date().getFullYear()} Avorria. Brand name is Avorria only. All rights reserved.</p>
             <p className="text-[11px] text-graphite-muted/70">
@@ -175,12 +185,22 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-6 text-[11px]">
-            <span>Zero Tracking Cookies</span>
-            <span className="text-ivory/10">/</span>
-            <span>Strict WCAG 2.2 AA</span>
-            <span className="text-ivory/10">/</span>
-            <span>Mobile LCP &lt; 2.0s Guaranteed</span>
+          <div className="flex flex-wrap items-center gap-4 text-[11px] font-mono">
+            <Link href="/privacy" className="hover:text-ivory transition-colors">
+              Privacy
+            </Link>
+            <span className="text-ivory/20">&middot;</span>
+            <Link href="/cookies" className="hover:text-ivory transition-colors">
+              Cookies
+            </Link>
+            <span className="text-ivory/20">&middot;</span>
+            <Link href="/terms" className="hover:text-ivory transition-colors">
+              Terms
+            </Link>
+            <span className="text-ivory/20">&middot;</span>
+            <Link href="/accessibility" className="hover:text-ivory transition-colors">
+              Accessibility
+            </Link>
           </div>
         </div>
       </div>
