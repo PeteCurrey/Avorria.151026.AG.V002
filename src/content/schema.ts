@@ -5,7 +5,7 @@ export const ServiceSchema = z.object({
   slug: z.string().min(1),
   code: z.string().min(1),
   title: z.string().min(3),
-  category: z.enum(["Web Platforms", "AI Systems", "Performance Engineering"]),
+  category: z.enum(["Web Platforms", "AI Systems", "Performance Engineering", "Design Systems"]),
   summary: z.string().min(20),
   headline: z.string().min(20),
   description: z.string().min(50),
@@ -17,6 +17,43 @@ export const ServiceSchema = z.object({
     range: z.string().min(5),
     engagementModel: z.string().min(5),
   }),
+  outcomeStatement: z.string().min(20).optional(),
+  deliveryPhases: z.array(
+    z.object({
+      num: z.string(),
+      title: z.string(),
+      description: z.string(),
+      deliverables: z.array(z.string()),
+    })
+  ).optional(),
+  techStackCategorized: z.array(
+    z.object({
+      category: z.string(),
+      items: z.array(
+        z.object({
+          name: z.string(),
+          rationale: z.string(),
+        })
+      ),
+    })
+  ).optional(),
+  engagementDetails: z.object({
+    process: z.string(),
+    teamComposition: z.array(z.string()),
+    timelineRange: z.string(),
+    timelineConfirmation: z.string(),
+    commercialModel: z.string(),
+  }).optional(),
+  relatedCaseStudySlugs: z.array(z.string()).optional(),
+  relatedLobbySlugs: z.array(z.string()).optional(),
+  aiCategories: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      architecture: z.string(),
+      caseStudyRef: z.string().optional(),
+    })
+  ).optional(),
 });
 
 export const CaseStudySchema = z.object({

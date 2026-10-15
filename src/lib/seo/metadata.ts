@@ -26,7 +26,8 @@ export function constructMetadata({
   const gbUrl = `${SITE_URL}${basePath === "/" ? "" : basePath}`;
   const usUrl = `${SITE_URL}/us${basePath === "/" ? "" : basePath}`;
 
-  const formattedTitle = title.includes("Avorria") ? title : `${title} | Avorria`;
+  const cleanTitle = title.replace(/\s*\|\s*Avorria\s*$/i, "").trim();
+  const formattedTitle = cleanTitle;
 
   const alternates: Metadata["alternates"] = {
     canonical: canonicalUrl,

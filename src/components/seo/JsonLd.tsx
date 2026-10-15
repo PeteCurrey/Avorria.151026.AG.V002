@@ -100,6 +100,7 @@ export function ServiceJsonLd({ service }: { service: Service }) {
     serviceType: service.category,
     name: service.title,
     description: service.summary,
+    serviceOutput: service.outcomeStatement || service.headline,
     provider: {
       "@type": "Organization",
       name: "Avorria",
@@ -111,6 +112,7 @@ export function ServiceJsonLd({ service }: { service: Service }) {
       priceCurrency: service.pricingGuidance.currency,
       description: service.pricingGuidance.range,
     },
+    termsOfService: `${SITE_URL}/contact`,
   };
 
   return (

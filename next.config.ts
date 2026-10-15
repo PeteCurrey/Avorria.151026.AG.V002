@@ -50,6 +50,36 @@ const nextConfig: NextConfig = {
         destination: "/contact",
         permanent: true,
       },
+      {
+        source: "/services/nextjs-platforms",
+        destination: "/services/web-engineering",
+        permanent: true,
+      },
+      {
+        source: "/services/enterprise-ai",
+        destination: "/services/ai-systems",
+        permanent: true,
+      },
+      {
+        source: "/services/performance-audits",
+        destination: "/services/performance-seo",
+        permanent: true,
+      },
+      {
+        source: "/us/services/nextjs-platforms",
+        destination: "/us/services/web-engineering",
+        permanent: true,
+      },
+      {
+        source: "/us/services/enterprise-ai",
+        destination: "/us/services/ai-systems",
+        permanent: true,
+      },
+      {
+        source: "/us/services/performance-audits",
+        destination: "/us/services/performance-seo",
+        permanent: true,
+      },
     ];
   },
   async headers() {
