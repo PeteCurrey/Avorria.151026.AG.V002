@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -14,104 +13,28 @@ const SLABS_DATA = [
   { id: "deployment", label: "05. Global Deployment", caption: "Immutable edge caching, automated CI gates, and strict WCAG 2.2 AA." },
 ];
 
-function AssemblingSlabs({ progress }: { progress: number }) {
-  const groupRef = useRef<THREE.Group>(null);
-
-  // 5 architectural slabs with graphite matte materials and rose hairline edges
-  const slabs = useMemo(() => {
-    return [0, 1, 2, 3, 4].map((i) => {
-      // Disassembled spread distance
-      const initialY = (i - 2) * 1.6;
-      // Target assembled Y
-      const targetY = (i - 2) * 0.28;
-      // Initial rotation
-      const initialRotX = (i - 2) * 0.18;
-      const initialRotZ = (i - 2) * 0.12;
-
-      return {
-        id: i,
-        initialY,
-        targetY,
-        initialRotX,
-        initialRotZ,
-        geometry: new THREE.BoxGeometry(3.2, 0.12, 1.8),
-        edgeGeometry: new THREE.EdgesGeometry(new THREE.BoxGeometry(3.205, 0.125, 1.805)),
-      };
-    });
-  }, []);
-
-  // Dispose geometries and materials on unmount
-  useEffect(() => {
-    return () => {
-      slabs.forEach((s) => {
-        s.geometry.dispose();
-        s.edgeGeometry.dispose();
-      });
-    };
-  }, [slabs]);
-
-  useFrame((_, delta) => {
-    if (groupRef.current) {
-      // Subtle continuous ambient drift
-      groupRef.current.rotation.y += delta * 0.05;
-    }
-  });
-
-  return (
-    <group ref={groupRef} rotation={[Math.PI / 6, -Math.PI / 5, 0]} position={[0, 0, 0]}>
-      {slabs.map((slab) => {
-        // Interpolate position and rotation based on scroll progress (0.0 disassembled -> 1.0 assembled)
-        const currentY = THREE.MathUtils.lerp(slab.initialY, slab.targetY, progress);
-        const currentRotX = THREE.MathUtils.lerp(slab.initialRotX, 0, progress);
-        const currentRotZ = THREE.MathUtils.lerp(slab.initialRotZ, 0, progress);
-
-        return (
-          <group
-            key={slab.id}
-            position={[0, currentY, 0]}
-            rotation={[currentRotX, 0, currentRotZ]}
-          >
-            {/* Slab Body */}
-            <mesh geometry={slab.geometry}>
-              <meshStandardMaterial
-                color={slab.id % 2 === 0 ? "#141517" : "#1E2023"}
-                roughness={0.75}
-                metalness={0.15}
-              />
-            </mesh>
-
-            {/* Rose Edge Accent */}
-            <lineSegments geometry={slab.edgeGeometry}>
-              <lineBasicMaterial
-                color="#A33A4B"
-                opacity={0.4 + progress * 0.4}
-                transparent
-                linewidth={1}
-              />
-            </lineSegments>
-          </group>
-        );
-      })}
-    </group>
-  );
-}
-
 export default function Signature3DSequence() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [progress, setProgress] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
-  const [isPinned, setIsPinned] = useState(false);
   const [isNearViewport, setIsNearViewport] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
   const [hasWebGL, setHasWebGL] = useState(true);
   const [contextLost, setContextLost] = useState(false);
   const [frameTimeMs, setFrameTimeMs] = useState(14.2);
 
+  // Keep a ref to progress so RAF loop and resize always have latest
+  const progressRef = useRef(0);
+
   useEffect(() => {
     // 1. Detect WebGL availability
     try {
       const testCanvas = document.createElement("canvas");
-      const gl = testCanvas.getContext("webgl2") || testCanvas.getContext("webgl") || testCanvas.getContext("experimental-webgl");
+      const gl =
+        testCanvas.getContext("webgl2") ||
+        testCanvas.getContext("webgl") ||
+        testCanvas.getContext("experimental-webgl");
       if (!gl) {
         setHasWebGL(false);
         return;
@@ -130,7 +53,7 @@ export default function Signature3DSequence() {
 
     const element = containerRef.current;
 
-    // 2. Mount only when near viewport using ScrollTrigger (not IntersectionObserver)
+    // 2. Mount only when near viewport using ScrollTrigger
     const mountTrigger = ScrollTrigger.create({
       trigger: element,
       start: "top 120%",
@@ -146,9 +69,9 @@ export default function Signature3DSequence() {
       end: "+=250%",
       pin: true,
       scrub: 0.8,
-      onToggle: (self) => setIsPinned(self.isActive),
       onUpdate: (self) => {
         const p = self.progress;
+        progressRef.current = p;
         setProgress(p);
 
         // Derive active layer index (0 to 4)
@@ -162,6 +85,178 @@ export default function Signature3DSequence() {
       pinTrigger.kill();
     };
   }, []);
+
+  // Pure Three.js lifecycle: runs when near viewport and canvas is mounted
+  useEffect(() => {
+    if (!isNearViewport || isReducedMotion || !hasWebGL || contextLost || !canvasRef.current) {
+      return;
+    }
+
+    const canvas = canvasRef.current;
+    const parent = canvas.parentElement;
+    if (!parent) return;
+
+    let width = parent.clientWidth || 600;
+    let height = parent.clientHeight || 450;
+
+    let renderer: THREE.WebGLRenderer | null = null;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+      renderer.setSize(width, height, false);
+    } catch {
+      setHasWebGL(false);
+      return;
+    }
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    camera.position.set(0, 0, 7.5);
+
+    // Ambient & Directional Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    const dirLight1 = new THREE.DirectionalLight(0xfaf8f5, 1.5);
+    dirLight1.position.set(5, 8, 4);
+    const dirLight2 = new THREE.DirectionalLight(0xa33a4b, 1.8);
+    dirLight2.position.set(-6, -4, -3);
+    scene.add(ambientLight, dirLight1, dirLight2);
+
+    // Root Group
+    const rootGroup = new THREE.Group();
+    rootGroup.rotation.set(Math.PI / 6, -Math.PI / 5, 0);
+    scene.add(rootGroup);
+
+    // 5 Architectural Slabs
+    const geometriesToDispose: THREE.BufferGeometry[] = [];
+    const materialsToDispose: THREE.Material[] = [];
+
+    const slabBoxes = [0, 1, 2, 3, 4].map((i) => {
+      const initialY = (i - 2) * 1.6;
+      const targetY = (i - 2) * 0.28;
+      const initialRotX = (i - 2) * 0.18;
+      const initialRotZ = (i - 2) * 0.12;
+
+      const slabGroup = new THREE.Group();
+      slabGroup.position.set(0, initialY, 0);
+      slabGroup.rotation.set(initialRotX, 0, initialRotZ);
+
+      // Box body
+      const boxGeo = new THREE.BoxGeometry(3.2, 0.12, 1.8);
+      geometriesToDispose.push(boxGeo);
+      const boxMat = new THREE.MeshStandardMaterial({
+        color: i % 2 === 0 ? 0x141517 : 0x1e2023,
+        roughness: 0.75,
+        metalness: 0.15,
+      });
+      materialsToDispose.push(boxMat);
+      const mesh = new THREE.Mesh(boxGeo, boxMat);
+      slabGroup.add(mesh);
+
+      // Rose hairline edge
+      const edgeGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(3.205, 0.125, 1.805));
+      geometriesToDispose.push(edgeGeo);
+      const edgeMat = new THREE.LineBasicMaterial({
+        color: 0xa33a4b,
+        opacity: 0.4,
+        transparent: true,
+        linewidth: 1,
+      });
+      materialsToDispose.push(edgeMat);
+      const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+      slabGroup.add(edges);
+
+      rootGroup.add(slabGroup);
+
+      return {
+        slabGroup,
+        edgeMat,
+        initialY,
+        targetY,
+        initialRotX,
+        initialRotZ,
+      };
+    });
+
+    // Resize handling
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const cr = entry.contentRect;
+        if (cr.width > 0 && cr.height > 0) {
+          width = cr.width;
+          height = cr.height;
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+          renderer?.setSize(width, height, false);
+        }
+      }
+    });
+    resizeObserver.observe(parent);
+
+    // WebGL context loss listeners
+    const handleContextLost = (e: Event) => {
+      e.preventDefault();
+      setContextLost(true);
+    };
+    const handleContextRestored = () => {
+      setContextLost(false);
+    };
+    canvas.addEventListener("webglcontextlost", handleContextLost, false);
+    canvas.addEventListener("webglcontextrestored", handleContextRestored, false);
+
+    // RAF Loop
+    let animId: number;
+    let lastTime = performance.now();
+    let frameCounter = 0;
+    let frameAcc = 0;
+
+    const animate = (now: number) => {
+      animId = requestAnimationFrame(animate);
+      const delta = (now - lastTime) / 1000;
+      const frameDelta = now - lastTime;
+      lastTime = now;
+
+      // Track frame time budget
+      frameCounter++;
+      frameAcc += frameDelta;
+      if (frameCounter >= 30) {
+        setFrameTimeMs(parseFloat((frameAcc / frameCounter).toFixed(1)));
+        frameCounter = 0;
+        frameAcc = 0;
+      }
+
+      // Continuous subtle ambient drift
+      rootGroup.rotation.y += delta * 0.05;
+
+      // Update slab positions based on current scrub progress
+      const p = progressRef.current;
+      slabBoxes.forEach((slab) => {
+        slab.slabGroup.position.y = THREE.MathUtils.lerp(slab.initialY, slab.targetY, p);
+        slab.slabGroup.rotation.x = THREE.MathUtils.lerp(slab.initialRotX, 0, p);
+        slab.slabGroup.rotation.z = THREE.MathUtils.lerp(slab.initialRotZ, 0, p);
+        slab.edgeMat.opacity = 0.4 + p * 0.4;
+      });
+
+      renderer?.render(scene, camera);
+    };
+
+    animId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      resizeObserver.disconnect();
+      canvas.removeEventListener("webglcontextlost", handleContextLost);
+      canvas.removeEventListener("webglcontextrestored", handleContextRestored);
+
+      geometriesToDispose.forEach((g) => g.dispose());
+      materialsToDispose.forEach((m) => m.dispose());
+      renderer?.dispose();
+    };
+  }, [isNearViewport, isReducedMotion, hasWebGL, contextLost]);
 
   return (
     <section
@@ -221,7 +316,7 @@ export default function Signature3DSequence() {
         </div>
 
         {/* 3D Scene / Fallback Poster Viewport */}
-        <div className="lg:col-span-7 h-[380px] sm:h-[480px] lg:h-[560px] relative border border-graphite-hairline bg-ivory-subtle/50 order-1 lg:order-2 flex items-center justify-center">
+        <div className="lg:col-span-7 h-[380px] sm:h-[480px] lg:h-[560px] relative border border-graphite-hairline bg-ivory-subtle/50 order-1 lg:order-2 flex items-center justify-center overflow-hidden">
           {isReducedMotion || !isNearViewport || !hasWebGL || contextLost ? (
             /* Static Pre-rendered Poster Fallback for Reduced Motion / Initial Mount / WebGL Loss */
             <div className="w-full h-full flex flex-col items-center justify-center p-8 text-center space-y-4">
@@ -241,31 +336,12 @@ export default function Signature3DSequence() {
               </span>
             </div>
           ) : (
-            /* React Three Fiber Scrubbed Canvas */
-            <Canvas
-              camera={{ position: [0, 0, 7.5], fov: 38 }}
-              dpr={[1, 1.5]}
-              gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-              frameloop={isPinned ? "always" : "demand"}
-              className="w-full h-full"
-              onCreated={({ gl }) => {
-                const dom = gl.domElement;
-                const handleLost = (e: Event) => {
-                  e.preventDefault();
-                  setContextLost(true);
-                };
-                const handleRestored = () => {
-                  setContextLost(false);
-                };
-                dom.addEventListener("webglcontextlost", handleLost, false);
-                dom.addEventListener("webglcontextrestored", handleRestored, false);
-              }}
-            >
-              <ambientLight intensity={0.8} />
-              <directionalLight position={[5, 8, 4]} intensity={1.5} color="#FAF8F5" />
-              <directionalLight position={[-6, -4, -3]} intensity={1.8} color="#A33A4B" />
-              <AssemblingSlabs progress={progress} />
-            </Canvas>
+            /* Pure Three.js Canvas */
+            <canvas
+              ref={canvasRef}
+              className="w-full h-full block"
+              aria-label="3D Interactive Slabs Model"
+            />
           )}
         </div>
       </div>

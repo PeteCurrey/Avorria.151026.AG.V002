@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { ComponentErrorBoundary } from "@/components/ui/ComponentErrorBoundary";
 
 const DynamicArchitecturalScene = dynamic(
   () => import("./ArchitecturalMonolithScene"),
@@ -49,5 +50,9 @@ export function LazySceneWrapper() {
     return <SceneFallback />;
   }
 
-  return <DynamicArchitecturalScene />;
+  return (
+    <ComponentErrorBoundary fallback={<SceneFallback />}>
+      <DynamicArchitecturalScene />
+    </ComponentErrorBoundary>
+  );
 }

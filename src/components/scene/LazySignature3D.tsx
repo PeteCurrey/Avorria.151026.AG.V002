@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { ComponentErrorBoundary } from "@/components/ui/ComponentErrorBoundary";
 
 const Dynamic3DSequence = dynamic(
   () => import("./Signature3DSequence"),
@@ -50,5 +51,9 @@ export function LazySignature3D() {
     return <SequencePosterFallback />;
   }
 
-  return <Dynamic3DSequence />;
+  return (
+    <ComponentErrorBoundary fallback={<SequencePosterFallback />}>
+      <Dynamic3DSequence />
+    </ComponentErrorBoundary>
+  );
 }

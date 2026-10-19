@@ -16,7 +16,7 @@ const cspHeader = `
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   trailingSlash: false,
-  transpilePackages: ["three", "@react-three/fiber", "@react-three/drei"],
+  transpilePackages: ["three"],
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
