@@ -121,10 +121,10 @@ export function Navigation() {
         }`}
       >
         <div
-          className={`max-w-6xl mx-auto flex items-center justify-between rounded-full px-6 sm:px-8 py-3 transition-all duration-300 ${
+          className={`max-w-6xl mx-auto flex items-center justify-between rounded-full px-6 sm:px-8 py-3 transition-all duration-500 ${
             isScrolled
               ? "liquid-glass shadow-[0_16px_40px_rgba(0,0,0,0.6)] border border-white/12"
-              : "bg-midnight/60 backdrop-blur-md border border-white/[0.08]"
+              : "bg-transparent border border-transparent"
           }`}
         >
           {/* Brand Wordmark - "Avorria" with glowing electric cobalt dot */}
