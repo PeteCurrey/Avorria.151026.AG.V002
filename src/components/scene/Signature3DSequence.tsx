@@ -118,11 +118,11 @@ export default function Signature3DSequence() {
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
     camera.position.set(0, 0, 7.5);
 
-    // Ambient & Directional Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-    const dirLight1 = new THREE.DirectionalLight(0xfaf8f5, 1.5);
+    // Ambient & Directional Lights: CMC Spectre Azure & Cyan palette
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    const dirLight1 = new THREE.DirectionalLight(0x325fff, 2.0);
     dirLight1.position.set(5, 8, 4);
-    const dirLight2 = new THREE.DirectionalLight(0xa33a4b, 1.8);
+    const dirLight2 = new THREE.DirectionalLight(0x00e5ff, 1.6);
     dirLight2.position.set(-6, -4, -3);
     scene.add(ambientLight, dirLight1, dirLight2);
 
@@ -145,24 +145,24 @@ export default function Signature3DSequence() {
       slabGroup.position.set(0, initialY, 0);
       slabGroup.rotation.set(initialRotX, 0, initialRotZ);
 
-      // Box body
+      // Box body: Midnight obsidian with metallic finish
       const boxGeo = new THREE.BoxGeometry(3.2, 0.12, 1.8);
       geometriesToDispose.push(boxGeo);
       const boxMat = new THREE.MeshStandardMaterial({
-        color: i % 2 === 0 ? 0x141517 : 0x1e2023,
-        roughness: 0.75,
-        metalness: 0.15,
+        color: i % 2 === 0 ? 0x0c0e17 : 0x141828,
+        roughness: 0.55,
+        metalness: 0.35,
       });
       materialsToDispose.push(boxMat);
       const mesh = new THREE.Mesh(boxGeo, boxMat);
       slabGroup.add(mesh);
 
-      // Rose hairline edge
+      // Electric cobalt hairline edge
       const edgeGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(3.205, 0.125, 1.805));
       geometriesToDispose.push(edgeGeo);
       const edgeMat = new THREE.LineBasicMaterial({
-        color: 0xa33a4b,
-        opacity: 0.4,
+        color: 0x325fff,
+        opacity: 0.5,
         transparent: true,
         linewidth: 1,
       });
@@ -261,16 +261,16 @@ export default function Signature3DSequence() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-screen bg-ivory text-graphite flex flex-col justify-between overflow-hidden hairline-t hairline-b"
+      className="relative w-full min-h-screen bg-midnight text-graphite flex flex-col justify-between overflow-hidden border-b border-white/[0.08]"
       aria-label="Signature 3D Sequence: Architectural Layers"
     >
       {/* Top Header */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-12 flex items-center justify-between z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 flex items-center justify-between z-10">
         <div>
-          <span className="text-xs font-mono uppercase tracking-widest text-rose block mb-1">
+          <span className="text-xs font-mono uppercase tracking-widest text-cobalt block mb-1">
             02 / Signature 3D Sequence
           </span>
-          <h2 className="font-fluid-h2 font-extralight text-graphite tracking-tight-display">
+          <h2 className="font-fluid-h2 font-extralight text-white tracking-tight-display">
             The Performance Architecture
           </h2>
         </div>
@@ -283,25 +283,29 @@ export default function Signature3DSequence() {
       <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1 py-8">
         {/* Captions Stepper */}
         <div className="lg:col-span-5 space-y-6 z-10 order-2 lg:order-1">
-          <div className="space-y-4">
+          <div className="space-y-3.5">
             {SLABS_DATA.map((slab, index) => {
               const isActive = activeStep === index;
               return (
                 <div
                   key={slab.id}
-                  className={`p-4 border transition-all duration-300 ${
+                  className={`p-4 rounded-xl border transition-all duration-300 ${
                     isActive
-                      ? "border-graphite bg-ivory-subtle translate-x-2"
-                      : "border-graphite-hairline/60 opacity-40"
+                      ? "border-cobalt/80 bg-white/[0.05] shadow-[0_0_24px_rgba(50,95,255,0.2)] translate-x-2"
+                      : "border-white/[0.06] bg-white/[0.02] opacity-40 hover:opacity-70"
                   }`}
                 >
                   <div className="flex items-center justify-between text-xs font-mono mb-1">
-                    <span className={isActive ? "text-rose" : "text-graphite-muted"}>
+                    <span className={isActive ? "text-cobalt font-medium" : "text-graphite-muted"}>
                       {slab.label}
                     </span>
-                    {isActive && <span className="text-[10px] uppercase tracking-wider text-rose">Active Layer</span>}
+                    {isActive && (
+                      <span className="text-[10px] uppercase tracking-wider text-cobalt bg-cobalt/15 px-2 py-0.5 rounded-full border border-cobalt/30">
+                        Active Layer
+                      </span>
+                    )}
                   </div>
-                  <p className="text-xs text-graphite font-light leading-relaxed">
+                  <p className="text-xs text-graphite-muted font-light leading-relaxed">
                     {slab.caption}
                   </p>
                 </div>
@@ -311,21 +315,21 @@ export default function Signature3DSequence() {
 
           <div className="pt-2 flex items-center justify-between text-[11px] font-mono text-graphite-muted">
             <span>Scrub progress: {Math.round(progress * 100)}%</span>
-            <span className="text-rose">Frame budget: {frameTimeMs}ms (&lt; 16.6ms)</span>
+            <span className="text-cyan-400">Frame budget: {frameTimeMs}ms (&lt; 16.6ms)</span>
           </div>
         </div>
 
         {/* 3D Scene / Fallback Poster Viewport */}
-        <div className="lg:col-span-7 h-[380px] sm:h-[480px] lg:h-[560px] relative border border-graphite-hairline bg-ivory-subtle/50 order-1 lg:order-2 flex items-center justify-center overflow-hidden">
+        <div className="lg:col-span-7 h-[380px] sm:h-[480px] lg:h-[560px] relative border border-white/10 bg-midnight-card/40 backdrop-blur-md rounded-2xl order-1 lg:order-2 flex items-center justify-center overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
           {isReducedMotion || !isNearViewport || !hasWebGL || contextLost ? (
             /* Static Pre-rendered Poster Fallback for Reduced Motion / Initial Mount / WebGL Loss */
             <div className="w-full h-full flex flex-col items-center justify-center p-8 text-center space-y-4">
-              <div className="w-56 h-40 border border-graphite-hairline relative flex flex-col justify-around p-3 bg-ivory">
-                <div className="w-full h-2 bg-graphite" />
-                <div className="w-full h-2 bg-graphite-surface" />
-                <div className="w-full h-2 bg-rose/40" />
-                <div className="w-full h-2 bg-graphite" />
-                <div className="w-full h-2 bg-graphite-surface" />
+              <div className="w-56 h-40 border border-white/10 rounded-xl relative flex flex-col justify-around p-3 bg-midnight">
+                <div className="w-full h-2 rounded bg-white/20" />
+                <div className="w-full h-2 rounded bg-cobalt/40" />
+                <div className="w-full h-2 rounded bg-cyan-400/50" />
+                <div className="w-full h-2 rounded bg-white/20" />
+                <div className="w-full h-2 rounded bg-cobalt/40" />
               </div>
               <span className="font-mono text-xs text-graphite-muted">
                 {contextLost
@@ -347,7 +351,7 @@ export default function Signature3DSequence() {
       </div>
 
       {/* Bottom Architectural Rule */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-8 flex items-center justify-between text-[11px] font-mono text-graphite-muted z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-8 flex items-center justify-between text-[11px] font-mono text-graphite-muted z-10 border-t border-white/[0.08] pt-4">
         <span>FRAME-LOCKED SCROLLTRIGGER SCRUB</span>
         <span>AVORRIA SPATIAL DATUM</span>
       </div>

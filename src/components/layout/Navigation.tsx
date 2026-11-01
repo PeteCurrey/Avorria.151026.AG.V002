@@ -116,30 +116,32 @@ export function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 transform-gpu ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 transform-gpu px-4 sm:px-8 pt-4 pb-2 ${
           isHidden ? "-translate-y-full" : "translate-y-0"
-        } ${
-          isScrolled
-            ? "bg-ivory/95 backdrop-blur-md hairline-b py-4"
-            : "bg-transparent py-6"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex items-center justify-between">
-          {/* Brand Wordmark - "Avorria" ONLY */}
+        <div
+          className={`max-w-6xl mx-auto flex items-center justify-between rounded-full px-6 sm:px-8 py-3 transition-all duration-300 ${
+            isScrolled
+              ? "liquid-glass shadow-[0_16px_40px_rgba(0,0,0,0.6)] border border-white/12"
+              : "bg-midnight/60 backdrop-blur-md border border-white/[0.08]"
+          }`}
+        >
+          {/* Brand Wordmark - "Avorria" with glowing electric cobalt dot */}
           <Link
             href={isUs ? "/us" : "/"}
-            className="group flex items-center gap-3 text-graphite hover:text-rose transition-colors duration-200 focus-visible:outline-rose"
+            className="group flex items-center gap-2.5 text-graphite hover:text-white transition-colors duration-200 focus-visible:outline-cobalt"
             aria-label={isUs ? "Avorria US Home" : "Avorria Home"}
           >
-            <span className="font-extralight text-2xl sm:text-3xl tracking-tighter-display uppercase">
+            <span className="font-extralight text-xl sm:text-2xl tracking-tighter-display uppercase">
               Avorria
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-rose inline-block group-hover:scale-125 transition-transform duration-200" />
+            <span className="w-1.5 h-1.5 rounded-full bg-cobalt shadow-[0_0_8px_rgba(50,95,255,0.8)] inline-block group-hover:scale-125 transition-transform duration-200" />
           </Link>
 
           {/* Center Links (Desktop) */}
           <nav
-            className="hidden md:flex items-center space-x-8 text-xs tracking-tight-editorial font-light text-graphite-muted"
+            className="hidden md:flex items-center space-x-7 text-xs tracking-tight-editorial font-light text-graphite-muted"
             aria-label="Main Navigation"
           >
             {navLinks.map((link) => {
@@ -149,12 +151,12 @@ export function Navigation() {
                   key={link.href}
                   href={link.href}
                   className={`transition-colors duration-150 py-1 relative ${
-                    isActive ? "text-graphite font-light" : "hover:text-graphite"
+                    isActive ? "text-white font-light" : "hover:text-white"
                   }`}
                 >
                   {link.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-[1px] bg-rose" />
+                    <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-cobalt shadow-[0_0_6px_rgba(50,95,255,0.8)]" />
                   )}
                 </Link>
               );
@@ -162,27 +164,34 @@ export function Navigation() {
           </nav>
 
           {/* Right Action & Menu Trigger */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-4">
             <Link
               href={alternateLocaleHref}
-              className="hidden sm:inline-block px-2.5 py-1 border border-graphite-hairline hover:border-graphite text-[11px] font-mono text-graphite transition-colors"
+              className="hidden sm:inline-block px-3 py-1 rounded-full border border-white/12 hover:border-white/30 text-[11px] font-mono text-graphite-muted hover:text-white transition-colors bg-white/[0.03]"
               title={isUs ? "Switch to United Kingdom" : "Switch to United States"}
             >
               {isUs ? "UK (en-GB)" : "US (en-US)"}
+            </Link>
+
+            <Link
+              href={`${prefix}/contact`}
+              className="hidden lg:inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-cobalt text-white text-[11px] uppercase tracking-wider font-light hover:bg-[#436DFF] hover:shadow-[0_0_16px_rgba(50,95,255,0.5)] transition-all"
+            >
+              Inquire
             </Link>
 
             <button
               ref={menuTriggerRef}
               type="button"
               onClick={() => setOverlayOpen(true)}
-              className="flex items-center gap-2.5 text-graphite p-2 focus-visible:outline-rose group"
+              className="flex items-center gap-2 text-graphite p-1.5 focus-visible:outline-cobalt group"
               aria-expanded={overlayOpen}
               aria-label="Open full-screen editorial menu"
             >
-              <span className="text-xs uppercase tracking-widest font-light group-hover:text-rose transition-colors">
+              <span className="text-xs uppercase tracking-widest font-light group-hover:text-cobalt transition-colors">
                 Menu
               </span>
-              <span className="w-4 h-[1px] bg-graphite group-hover:bg-rose group-hover:w-6 transition-all duration-200" />
+              <span className="w-4 h-[1px] bg-graphite group-hover:bg-cobalt group-hover:w-6 transition-all duration-200" />
             </button>
           </div>
         </div>
@@ -194,14 +203,14 @@ export function Navigation() {
         role="dialog"
         aria-modal="true"
         aria-label="Site Navigation"
-        className="fixed inset-0 z-50 bg-ivory text-graphite flex-col justify-between p-8 sm:p-16 overflow-y-auto hidden"
+        className="fixed inset-0 z-50 bg-midnight/95 backdrop-blur-2xl text-graphite flex-col justify-between p-8 sm:p-16 overflow-y-auto hidden"
       >
         {/* Overlay Top Bar */}
-        <div className="flex items-center justify-between border-b border-graphite-hairline pb-8">
+        <div className="flex items-center justify-between border-b border-white/10 pb-8">
           <Link
             href={isUs ? "/us" : "/"}
             onClick={() => setOverlayOpen(false)}
-            className="font-extralight text-3xl uppercase tracking-tighter-display"
+            className="font-extralight text-3xl uppercase tracking-tighter-display text-white"
           >
             Avorria
           </Link>
@@ -209,7 +218,7 @@ export function Navigation() {
           <button
             type="button"
             onClick={() => setOverlayOpen(false)}
-            className="flex items-center gap-2 text-xs uppercase tracking-widest text-graphite hover:text-rose p-2 focus-visible:outline-rose"
+            className="flex items-center gap-2 text-xs uppercase tracking-widest text-graphite hover:text-cobalt p-2 focus-visible:outline-cobalt"
             aria-label="Close navigation overlay"
           >
             <span>Close</span>

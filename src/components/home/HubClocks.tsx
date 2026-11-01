@@ -23,5 +23,5 @@ export function HubClock({ timeZone, fallback }: { timeZone: string; fallback: s
     return () => clearInterval(interval);
   }, [timeZone]);
 
-  return <span className="font-mono text-xs text-rose font-light">{time || fallback}</span>;
+  return <span className="font-mono text-xs text-cobalt font-medium">{time || fallback}</span>;
 }

@@ -48,21 +48,21 @@ export function Footer() {
   };
 
   return (
-    <footer className="theme-dark bg-graphite text-ivory hairline-t transition-colors duration-200">
+    <footer className="bg-midnight text-graphite border-t border-white/10 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28 space-y-16">
         {/* Top Monolithic Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 hairline-b">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
           {/* Brand & Mandate */}
           <div className="lg:col-span-5 space-y-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-3 text-ivory hover:text-rose-dark transition-colors"
+              className="inline-flex items-center gap-3 text-white hover:text-cobalt transition-colors"
               aria-label="Avorria home"
             >
               <span className="font-extralight text-3xl sm:text-4xl tracking-tighter-display uppercase">
                 Avorria
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-dark inline-block" />
+              <span className="w-2 h-2 rounded-full bg-cobalt shadow-[0_0_8px_rgba(50,95,255,0.8)] inline-block" />
             </Link>
             <p className="text-sm font-light text-graphite-muted max-w-md leading-relaxed">
               Performance-first Next.js, Vite, and React web platforms and production AI systems engineered for ambitious enterprises across the UK and USA.
@@ -79,33 +79,33 @@ export function Footer() {
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="corporate.email@firm.com"
-                  className="bg-transparent border border-ivory/20 px-3.5 py-2 text-xs text-ivory placeholder:text-graphite-muted focus:border-rose-dark focus:outline-none flex-1 font-mono"
+                  className="bg-midnight-card border border-white/10 rounded-full px-4 py-2.5 text-xs text-white placeholder:text-graphite-muted focus:border-cobalt focus:outline-none flex-1 font-mono"
                   aria-label="Subscribe to quarterly technical dispatch"
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-ivory text-graphite text-xs uppercase tracking-wider font-light hover:bg-rose-dark hover:text-graphite transition-colors shrink-0"
+                  className="px-5 py-2.5 bg-cobalt text-white text-xs uppercase tracking-wider font-medium hover:bg-cobalt-light rounded-full transition-colors shrink-0 shadow-[0_0_15px_rgba(50,95,255,0.4)]"
                 >
                   Join
                 </button>
               </form>
               {newsletterStatus && (
-                <p className="text-[11px] text-rose-dark font-mono">{newsletterStatus}</p>
+                <p className="text-[11px] text-cobalt font-mono">{newsletterStatus}</p>
               )}
             </div>
           </div>
 
           {/* Operational Hubs & Live Clocks */}
           <div className="lg:col-span-4 space-y-6">
-            <h3 className="text-xs uppercase tracking-widest text-graphite-muted font-light">
+            <h3 className="text-xs uppercase tracking-widest text-white/80 font-medium">
               Operational Hubs &amp; Local Time
             </h3>
             <div className="space-y-6">
               {/* London Hub */}
-              <div className="space-y-1.5 border-l border-ivory/10 pl-4">
+              <div className="space-y-1.5 border-l-2 border-cobalt/40 pl-4">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-sm font-light text-ivory">London [LON]</span>
-                  <span className="font-mono text-rose-dark">{londonTime || "GMT / BST"}</span>
+                  <span className="text-sm font-light text-white">London [LON]</span>
+                  <span className="font-mono text-cobalt font-medium">{londonTime || "GMT / BST"}</span>
                 </div>
                 <p className="text-xs font-light text-graphite-muted">
                   1 Poultry, London, EC2R 8EJ &middot; England &amp; Wales
@@ -116,10 +116,10 @@ export function Footer() {
               </div>
 
               {/* New York Hub */}
-              <div className="space-y-1.5 border-l border-ivory/10 pl-4">
+              <div className="space-y-1.5 border-l-2 border-cobalt/40 pl-4">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-sm font-light text-ivory">New York [NYC]</span>
-                  <span className="font-mono text-rose-dark">{nyTime || "EST / EDT"}</span>
+                  <span className="text-sm font-light text-white">New York [NYC]</span>
+                  <span className="font-mono text-cobalt font-medium">{nyTime || "EST / EDT"}</span>
                 </div>
                 <p className="text-xs font-light text-graphite-muted">
                   One World Trade Center, Floor 85, NY 10007 &middot; Delaware / NY
@@ -133,42 +133,42 @@ export function Footer() {
 
           {/* Direct Navigation */}
           <div className="lg:col-span-3 space-y-6">
-            <h3 className="text-xs uppercase tracking-widest text-graphite-muted font-light">
+            <h3 className="text-xs uppercase tracking-widest text-white/80 font-medium">
               System Endpoints
             </h3>
             <ul className="space-y-2.5 text-xs font-light">
               <li>
-                <Link href="/services" className="text-graphite-muted hover:text-ivory transition-colors">
+                <Link href="/services" className="text-graphite-muted hover:text-white transition-colors">
                   Engineering Services
                 </Link>
               </li>
               <li>
-                <Link href="/work" className="text-graphite-muted hover:text-ivory transition-colors">
+                <Link href="/work" className="text-graphite-muted hover:text-white transition-colors">
                   Selected Work &amp; Case Studies
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-graphite-muted hover:text-ivory transition-colors">
+                <Link href="/about" className="text-graphite-muted hover:text-white transition-colors">
                   About Practice &amp; Team
                 </Link>
               </li>
               <li>
-                <Link href="/lobby" className="text-graphite-muted hover:text-ivory transition-colors">
+                <Link href="/lobby" className="text-graphite-muted hover:text-white transition-colors">
                   The Lobby (Essays &amp; Standards)
                 </Link>
               </li>
               <li>
-                <Link href="/audit" className="text-graphite-muted hover:text-ivory transition-colors">
+                <Link href="/audit" className="text-graphite-muted hover:text-white transition-colors">
                   Architectural Site Audit
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-graphite-muted hover:text-ivory transition-colors">
+                <Link href="/contact" className="text-graphite-muted hover:text-white transition-colors">
                   Inquire on Mandate
                 </Link>
               </li>
               <li>
-                <Link href="/design-system" className="text-rose-dark hover:underline font-mono text-[11px]">
+                <Link href="/design-system" className="text-cobalt hover:underline font-mono text-[11px]">
                   Design System &middot; /design-system
                 </Link>
               </li>
@@ -186,19 +186,19 @@ export function Footer() {
           </div>
 
           <div className="flex flex-wrap items-center gap-4 text-[11px] font-mono">
-            <Link href="/privacy" className="hover:text-ivory transition-colors">
+            <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy
             </Link>
-            <span className="text-ivory/20">&middot;</span>
-            <Link href="/cookies" className="hover:text-ivory transition-colors">
+            <span className="text-white/20">&middot;</span>
+            <Link href="/cookies" className="hover:text-white transition-colors">
               Cookies
             </Link>
-            <span className="text-ivory/20">&middot;</span>
-            <Link href="/terms" className="hover:text-ivory transition-colors">
+            <span className="text-white/20">&middot;</span>
+            <Link href="/terms" className="hover:text-white transition-colors">
               Terms
             </Link>
-            <span className="text-ivory/20">&middot;</span>
-            <Link href="/accessibility" className="hover:text-ivory transition-colors">
+            <span className="text-white/20">&middot;</span>
+            <Link href="/accessibility" className="hover:text-white transition-colors">
               Accessibility
             </Link>
           </div>

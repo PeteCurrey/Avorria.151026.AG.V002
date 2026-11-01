@@ -187,12 +187,12 @@ export function PerformanceProofSection() {
   return (
     <section
       id="performance-proof"
-      className="w-full py-24 sm:py-32 bg-ivory text-graphite border-b border-graphite-hairline"
+      className="w-full py-24 sm:py-32 bg-midnight text-graphite border-b border-white/[0.08]"
       aria-label="Avorria Performance Telemetry"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-16">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-graphite-hairline">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-white/[0.08]">
           <SectionHeader
             eyebrow="04 / Empirical Telemetry"
             heading="Contractual Performance Proof"
@@ -201,7 +201,7 @@ export function PerformanceProofSection() {
           <div className="flex items-center gap-3 text-xs font-mono text-graphite-muted shrink-0">
             <span
               className={`w-2 h-2 rounded-full ${
-                observerActive ? "bg-emerald-600 animate-pulse" : "bg-rose"
+                observerActive ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" : "bg-cobalt shadow-[0_0_8px_rgba(50,95,255,0.8)]"
               }`}
             />
             <span>
@@ -219,11 +219,11 @@ export function PerformanceProofSection() {
             return (
               <div
                 key={m.code}
-                className="border border-graphite-hairline p-6 bg-ivory-subtle space-y-4 relative"
+                className="border border-white/10 p-6 bg-midnight-card/50 backdrop-blur-md rounded-xl space-y-4 relative hover:border-cobalt/40 transition-all duration-200"
               >
                 <div className="flex items-center justify-between text-xs font-mono text-graphite-muted">
                   <span>[{m.code}]</span>
-                  <span className="uppercase text-[11px] text-rose font-light">
+                  <span className="uppercase text-[11px] text-cobalt font-medium">
                     SLA: {m.targetSla}
                   </span>
                 </div>
@@ -234,12 +234,12 @@ export function PerformanceProofSection() {
                   </span>
                   <div className="flex items-baseline gap-2">
                     {isMeasuring ? (
-                      <span className="font-mono text-xl sm:text-2xl text-rose font-light animate-pulse">
+                      <span className="font-mono text-xl sm:text-2xl text-cobalt font-light animate-pulse">
                         measuring...
                       </span>
                     ) : (
                       <>
-                        <span className="font-mono text-3xl font-extralight text-graphite">
+                        <span className="font-mono text-3xl font-extralight text-white">
                           {m.currentValue}
                         </span>
                         {m.unit && (
@@ -252,16 +252,17 @@ export function PerformanceProofSection() {
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-graphite-hairline/60 flex items-center justify-between text-[11px] font-mono">
+                <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono">
                   <span className="text-graphite-muted">Validation:</span>
                   {isMeasuring ? (
                     <span className="text-graphite-muted uppercase">Awaiting Event</span>
                   ) : m.status === "pass" ? (
-                    <span className="text-emerald-700 uppercase font-light">
-                      &bull; SLA Verified
+                    <span className="text-emerald-400 uppercase font-light flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
+                      SLA Verified
                     </span>
                   ) : (
-                    <span className="text-rose uppercase font-light">
+                    <span className="text-cobalt uppercase font-light">
                       Evaluating Sample
                     </span>
                   )}
@@ -276,9 +277,9 @@ export function PerformanceProofSection() {
         </div>
 
         {/* Engineering Assurances Table */}
-        <div className="p-8 border border-graphite-hairline bg-ivory space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-graphite-hairline pb-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-graphite">
+        <div className="p-8 border border-white/10 bg-midnight-surface/60 backdrop-blur-md rounded-2xl space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
+            <span className="text-xs font-mono uppercase tracking-widest text-white">
               Transatlantic SLA Architecture Baseline
             </span>
             <span className="text-[11px] font-mono text-graphite-muted">
@@ -287,8 +288,8 @@ export function PerformanceProofSection() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-graphite font-light leading-relaxed">
-            <div className="space-y-2 border-l border-graphite-hairline pl-4">
-              <span className="font-mono text-[11px] text-rose uppercase tracking-wider block">
+            <div className="space-y-2 border-l border-white/[0.08] pl-4">
+              <span className="font-mono text-[11px] text-cobalt uppercase tracking-wider block">
                 01. Zero Third-Party Tag Bloat
               </span>
               <p className="text-graphite-muted">
@@ -296,8 +297,8 @@ export function PerformanceProofSection() {
               </p>
             </div>
 
-            <div className="space-y-2 border-l border-graphite-hairline pl-4">
-              <span className="font-mono text-[11px] text-rose uppercase tracking-wider block">
+            <div className="space-y-2 border-l border-white/[0.08] pl-4">
+              <span className="font-mono text-[11px] text-cobalt uppercase tracking-wider block">
                 02. Full WCAG 2.2 Level AA
               </span>
               <p className="text-graphite-muted">
@@ -305,8 +306,8 @@ export function PerformanceProofSection() {
               </p>
             </div>
 
-            <div className="space-y-2 border-l border-graphite-hairline pl-4">
-              <span className="font-mono text-[11px] text-rose uppercase tracking-wider block">
+            <div className="space-y-2 border-l border-white/[0.08] pl-4">
+              <span className="font-mono text-[11px] text-cobalt uppercase tracking-wider block">
                 03. Contractually Guaranteed
               </span>
               <p className="text-graphite-muted">

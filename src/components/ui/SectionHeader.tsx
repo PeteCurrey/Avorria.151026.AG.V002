@@ -25,11 +25,11 @@ export function SectionHeader({
     >
       {eyebrow && (
         <div
-          className={`flex items-center gap-2.5 text-xs uppercase tracking-widest text-rose font-light ${
+          className={`flex items-center gap-2.5 text-xs uppercase tracking-widest text-cobalt font-medium ${
             isCenter ? "justify-center" : ""
           }`}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-rose inline-block" />
+          <span className="w-1.5 h-1.5 rounded-full bg-cobalt shadow-[0_0_8px_rgba(50,95,255,0.8)] inline-block" />
           <span>{eyebrow}</span>
         </div>
       )}

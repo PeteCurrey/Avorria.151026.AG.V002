@@ -57,13 +57,13 @@ export function Button({
     };
   }, [magnetic]);
 
-  // Style Variants
+  // Style Variants: CMC Spectre Electric Cobalt Pill & Frosted Glass
   const baseClasses =
     variant === "primary"
-      ? "inline-flex items-center justify-center px-8 py-3.5 bg-graphite text-ivory text-xs uppercase tracking-widest font-light hover:bg-rose transition-colors duration-200 focus-visible:outline-rose rounded-none"
+      ? "inline-flex items-center justify-center px-7 py-3 rounded-full bg-cobalt text-white text-xs uppercase tracking-wider font-light shadow-[0_0_20px_rgba(50,95,255,0.3)] hover:bg-[#436DFF] hover:shadow-[0_0_28px_rgba(50,95,255,0.5)] transition-all duration-200 focus-visible:outline-cobalt"
       : variant === "secondary"
-      ? "inline-flex items-center justify-center px-8 py-3.5 border border-graphite-hairline text-graphite text-xs uppercase tracking-widest font-light hover:border-graphite transition-colors duration-200 focus-visible:outline-rose rounded-none bg-transparent"
-      : "underline-sweep text-xs uppercase tracking-wider font-light text-graphite hover:text-rose transition-colors py-1";
+      ? "inline-flex items-center justify-center px-7 py-3 rounded-full border border-white/20 bg-white/[0.06] backdrop-blur-md text-white text-xs uppercase tracking-wider font-light hover:bg-white/[0.12] hover:border-white/35 transition-all duration-200 focus-visible:outline-cobalt"
+      : "underline-sweep text-xs uppercase tracking-wider font-light text-graphite hover:text-cobalt transition-colors py-1";
 
   const combinedClasses = `${baseClasses} ${className}`;
 

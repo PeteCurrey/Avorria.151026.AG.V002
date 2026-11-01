@@ -48,12 +48,12 @@ export function CapabilitiesSection() {
   return (
     <section
       id="capabilities"
-      className="w-full py-24 sm:py-32 bg-ivory text-graphite border-b border-graphite-hairline"
+      className="w-full py-24 sm:py-32 bg-midnight text-graphite border-b border-white/[0.08]"
       aria-label="Avorria Capabilities"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-16">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-graphite-hairline">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-white/[0.08]">
           <SectionHeader
             eyebrow="03 / Core Capabilities"
             heading="Engineering Practices"
@@ -61,20 +61,20 @@ export function CapabilitiesSection() {
           />
           <Link
             href="/services"
-            className="text-xs uppercase tracking-widest font-mono text-rose hover:text-graphite transition-colors underline-sweep shrink-0"
+            className="text-xs uppercase tracking-widest font-mono text-cobalt hover:text-white transition-colors underline-sweep shrink-0"
           >
             Explore all services &rarr;
           </Link>
         </div>
 
         {/* HoverReveal Row List */}
-        <div className="space-y-0 divide-y divide-graphite-hairline border-y border-graphite-hairline">
+        <div className="space-y-0 divide-y divide-white/[0.08] border-y border-white/[0.08]">
           {CAPABILITIES.map((cap) => (
             <HoverReveal
               key={cap.code}
               variant="row-hover"
               previewText={cap.previewText}
-              className="py-8 sm:py-10 group transition-colors duration-200"
+              className="py-8 sm:py-10 group transition-colors duration-200 hover:bg-white/[0.02]"
             >
               <Link
                 href={cap.href}
@@ -82,7 +82,7 @@ export function CapabilitiesSection() {
               >
                 {/* Num & Code */}
                 <div className="md:col-span-2 flex items-baseline gap-3">
-                  <span className="font-mono text-sm text-rose font-light">
+                  <span className="font-mono text-sm text-cobalt font-medium">
                     {cap.num}
                   </span>
                   <span className="font-mono text-xs text-graphite-muted">
@@ -92,7 +92,7 @@ export function CapabilitiesSection() {
 
                 {/* Capability Title */}
                 <div className="md:col-span-4">
-                  <h3 className="font-fluid-h3 font-extralight text-graphite group-hover:text-rose transition-colors duration-200">
+                  <h3 className="font-fluid-h3 font-extralight text-white group-hover:text-cobalt transition-colors duration-200">
                     {cap.title}
                   </h3>
                 </div>
@@ -105,9 +105,9 @@ export function CapabilitiesSection() {
                 </div>
 
                 {/* Arrow / Stack */}
-                <div className="md:col-span-2 flex items-center md:justify-end gap-2 text-xs font-mono text-graphite-muted group-hover:text-graphite">
+                <div className="md:col-span-2 flex items-center md:justify-end gap-2 text-xs font-mono text-graphite-muted group-hover:text-white">
                   <span className="hidden xl:inline text-[11px] truncate">{cap.stack}</span>
-                  <span className="text-rose text-base transform group-hover:translate-x-1.5 transition-transform duration-200">
+                  <span className="text-cobalt text-base transform group-hover:translate-x-1.5 transition-transform duration-200">
                     &rarr;
                   </span>
                 </div>

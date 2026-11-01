@@ -83,7 +83,7 @@ export function ApproachSection() {
 
   if (isReducedMotion) {
     return (
-      <section className="py-24 bg-ivory text-graphite border-b border-graphite-hairline">
+      <section className="py-24 bg-midnight text-white border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-16">
           <SectionHeader
             eyebrow="06 / The Methodology"
@@ -94,16 +94,16 @@ export function ApproachSection() {
             {APPROACH_STEPS.map((step) => (
               <div
                 key={step.num}
-                className="border border-graphite-hairline p-8 space-y-6 bg-ivory-subtle"
+                className="border border-white/10 p-8 space-y-6 bg-midnight-card/80 rounded-2xl backdrop-blur-md"
               >
-                <span className="font-extralight text-6xl text-graphite/40 font-mono">
+                <span className="font-extralight text-6xl text-white/20 font-mono">
                   {step.num}
                 </span>
                 <div className="space-y-2">
-                  <span className="text-xs font-mono text-rose uppercase tracking-wider block">
+                  <span className="text-xs font-mono text-cobalt uppercase tracking-wider block">
                     {step.phase}
                   </span>
-                  <h3 className="text-2xl font-extralight text-graphite">
+                  <h3 className="text-2xl font-extralight text-white">
                     {step.title}
                   </h3>
                   <p className="text-xs text-graphite-muted leading-relaxed font-light">
@@ -124,24 +124,24 @@ export function ApproachSection() {
     <section
       ref={containerRef}
       id="approach"
-      className="relative w-full min-h-screen bg-ivory text-graphite flex flex-col justify-between overflow-hidden border-b border-graphite-hairline"
+      className="relative w-full min-h-screen bg-midnight text-white flex flex-col justify-between overflow-hidden border-b border-white/10"
       aria-label="Avorria Engineering Approach"
     >
       {/* Top Header */}
       <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-12 flex items-center justify-between z-10">
         <div>
-          <span className="text-xs font-mono uppercase tracking-widest text-rose block mb-1">
+          <span className="text-xs font-mono uppercase tracking-widest text-cobalt block mb-1">
             06 / The Methodology
           </span>
-          <h2 className="font-fluid-h2 font-extralight text-graphite tracking-tight-display">
+          <h2 className="font-fluid-h2 font-extralight text-white tracking-tight-display">
             The Architectural Approach
           </h2>
         </div>
         <div className="hidden sm:flex items-center gap-6 text-xs font-mono text-graphite-muted">
           <span>Pinned Step: {activeStep + 1} of 3</span>
-          <div className="w-24 h-[1px] bg-graphite-hairline relative">
+          <div className="w-24 h-[1px] bg-white/10 relative">
             <div
-              className="absolute top-0 left-0 h-full bg-rose transition-all duration-150"
+              className="absolute top-0 left-0 h-full bg-cobalt transition-all duration-150"
               style={{ width: `${Math.round(progress * 100)}%` }}
             />
           </div>
@@ -153,10 +153,10 @@ export function ApproachSection() {
         {/* Left: Giant Numeral & Step Navigation */}
         <div className="lg:col-span-5 space-y-8">
           <div className="relative">
-            <span className="font-extralight text-[6rem] sm:text-[9rem] lg:text-[11rem] leading-none text-graphite tracking-tighter block select-none">
+            <span className="font-extralight text-[6rem] sm:text-[9rem] lg:text-[11rem] leading-none text-white/30 tracking-tighter block select-none">
               {current.num}
             </span>
-            <span className="text-xs font-mono uppercase tracking-widest text-rose block -mt-4 pl-2">
+            <span className="text-xs font-mono uppercase tracking-widest text-cobalt block -mt-4 pl-2 font-medium">
               {current.phase}
             </span>
           </div>
@@ -165,10 +165,10 @@ export function ApproachSection() {
             {APPROACH_STEPS.map((s, idx) => (
               <div
                 key={s.num}
-                className={`h-1 transition-all duration-300 ${
+                className={`h-1 rounded-full transition-all duration-300 ${
                   activeStep === idx
-                    ? "w-16 bg-rose"
-                    : "w-8 bg-graphite-hairline"
+                    ? "w-16 bg-cobalt"
+                    : "w-8 bg-white/20"
                 }`}
               />
             ))}
@@ -176,12 +176,12 @@ export function ApproachSection() {
         </div>
 
         {/* Right: Architectural Content Panel */}
-        <div className="lg:col-span-7 border border-graphite-hairline bg-ivory-subtle p-8 sm:p-12 space-y-6 shadow-sm">
+        <div className="lg:col-span-7 border border-white/10 bg-midnight-card/90 backdrop-blur-xl p-8 sm:p-12 space-y-6 shadow-2xl rounded-2xl">
           <div className="space-y-2">
-            <span className="text-xs font-mono uppercase text-rose tracking-wider block">
+            <span className="text-xs font-mono uppercase text-cobalt tracking-wider block font-medium">
               {current.headline}
             </span>
-            <h3 className="font-fluid-h2 font-extralight text-graphite tracking-tight-display">
+            <h3 className="font-fluid-h2 font-extralight text-white tracking-tight-display">
               {current.title}
             </h3>
           </div>
@@ -190,14 +190,14 @@ export function ApproachSection() {
             {current.body}
           </p>
 
-          <div className="pt-4 border-t border-graphite-hairline space-y-3">
-            <span className="text-xs font-mono text-graphite uppercase tracking-wider block">
+          <div className="pt-4 border-t border-white/10 space-y-3">
+            <span className="text-xs font-mono text-white uppercase tracking-wider block">
               Verifiable Outputs:
             </span>
             <ul className="space-y-2 text-xs sm:text-sm text-graphite font-light">
               {current.deliverables.map((del, dIdx) => (
                 <li key={dIdx} className="flex items-start gap-2.5">
-                  <span className="text-rose font-mono text-xs mt-0.5">&bull;</span>
+                  <span className="text-cobalt font-mono text-xs mt-0.5">&bull;</span>
                   <span>{del}</span>
                 </li>
               ))}
@@ -207,9 +207,9 @@ export function ApproachSection() {
       </div>
 
       {/* Bottom Architectural Rule */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-8 flex items-center justify-between text-[11px] font-mono text-graphite-muted z-10 border-t border-graphite-hairline pt-4">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-8 flex items-center justify-between text-[11px] font-mono text-graphite-muted z-10 border-t border-white/10 pt-4">
         <span>SCROLL-SCRUBBED METHODOLOGY SEQUENCE</span>
-        <span>AVORRIA GOVERNANCE SPECIFICATION</span>
+        <span className="text-cobalt">AVORRIA GOVERNANCE SPECIFICATION</span>
       </div>
     </section>
   );

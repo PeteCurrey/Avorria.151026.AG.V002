@@ -92,7 +92,7 @@ export default function RootLayout({
       <head>
         <OrganizationAndWebsiteJsonLd />
       </head>
-      <body className="min-h-screen flex flex-col bg-ivory text-graphite font-light antialiased selection:bg-rose selection:text-ivory">
+      <body className="min-h-screen flex flex-col bg-midnight text-graphite font-light antialiased selection:bg-cobalt selection:text-white">
         {/* Skip to Content for WCAG 2.2 AA Keyboard Accessibility */}
         <a href="#main-content" className="skip-to-content">
           Skip to main content
