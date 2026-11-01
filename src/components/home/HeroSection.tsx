@@ -88,7 +88,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative w-full min-h-[calc(100vh-4.5rem)] flex flex-col justify-between px-6 sm:px-8 lg:px-12 pt-28 pb-10 bg-midnight text-graphite border-b border-white/[0.08] overflow-hidden"
+      className="relative w-full min-h-[82vh] lg:min-h-[85vh] flex flex-col justify-between px-6 sm:px-8 lg:px-12 pt-24 pb-8 sm:pt-28 sm:pb-8 bg-midnight text-graphite border-b border-white/[0.08] overflow-hidden"
       aria-label="Avorria Hero"
     >
       {/* 1. CMC Spectre Atmospheric Hero Video Loop */}
@@ -113,10 +113,10 @@ export function HeroSection() {
       </div>
 
       {/* Top Editorial Eyebrow & Status */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between text-xs font-mono text-graphite-muted pt-2">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between text-xs font-mono text-graphite-muted pt-1">
         <div className="flex items-center gap-2.5">
           <span className="w-1.5 h-1.5 rounded-full bg-cobalt shadow-[0_0_8px_rgba(50,95,255,0.9)] inline-block animate-pulse" />
-          <span className="uppercase tracking-widest text-graphite font-light">
+          <span className="uppercase tracking-widest text-graphite font-light text-[11px] sm:text-xs">
             Architectural Digital Practice &middot; UK &amp; USA
           </span>
         </div>
@@ -126,9 +126,9 @@ export function HeroSection() {
       </div>
 
       {/* Main Core Display (LCP Element) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto my-auto py-12 lg:py-16 space-y-8">
+      <div className="relative z-10 w-full max-w-7xl mx-auto my-auto py-8 sm:py-10 lg:py-12 space-y-6">
         {/* CMC Spectre-Style Pill Badges */}
-        <div ref={chipsRef} className="flex flex-wrap items-center gap-2.5">
+        <div ref={chipsRef} className="flex flex-wrap items-center gap-2">
           <Chip label="Sub-2.0s LCP SLA" variant="cobalt" />
           <Chip label="React 19 Server Components" variant="cyan" />
           <Chip label="Deterministic AI Pipelines" variant="default" />
@@ -136,19 +136,19 @@ export function HeroSection() {
 
         <h1
           ref={headlineRef}
-          className="font-fluid-display font-extralight text-white tracking-tighter-display max-w-5xl"
+          className="text-2xl sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.5rem] leading-[1.08] font-extralight text-white tracking-tight-display max-w-4xl"
         >
-          <span className="block overflow-hidden pb-1">
+          <span className="block overflow-hidden pb-0.5">
             <span className="hero-line-inner inline-block">
               Performance-first websites
             </span>
           </span>
-          <span className="block overflow-hidden pb-1">
+          <span className="block overflow-hidden pb-0.5">
             <span className="hero-line-inner inline-block">
               and AI systems for
             </span>
           </span>
-          <span className="block overflow-hidden pb-1">
+          <span className="block overflow-hidden pb-0.5">
             <span className="hero-line-inner inline-block text-white">
               ambitious UK and US businesses<span className="text-cobalt font-light">.</span>
             </span>
@@ -157,13 +157,13 @@ export function HeroSection() {
 
         <p
           ref={copyRef}
-          className="text-base sm:text-lg lg:text-xl font-light text-graphite-muted max-w-3xl leading-relaxed"
+          className="text-sm sm:text-base lg:text-lg font-light text-graphite-muted max-w-2xl leading-relaxed"
         >
           Avorria delivers deterministic web architecture, sub-2.0s Core Web Vitals, and production-hardened AI pipelines for high-growth enterprises in London and New York.
         </p>
 
         {/* Two CTAs: Electric Cobalt Pill & Frosted Glass */}
-        <div ref={ctaRef} className="pt-4 flex flex-wrap items-center gap-5">
+        <div ref={ctaRef} className="pt-2 flex flex-wrap items-center gap-4">
           <Button href="/contact" variant="primary" magnetic>
             Start a project &rarr;
           </Button>
